@@ -7,10 +7,9 @@ const GlobalStyles = createGlobalStyle`
       font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
       line-height: 1.5;
       font-weight: 400;
-    
       color-scheme: light dark;
       color: ${props => props.theme.colors.primary};
-      background-color: #1E1E1E;
+      background-color: ${props => props.theme.colors.backgroundOut};
     
       font-synthesis: none;
       text-rendering: optimizeLegibility;
@@ -80,7 +79,7 @@ const GlobalStyles = createGlobalStyle`
       min-height: 100vh;
       scroll-behavior: smooth;
       text-rendering: optimizeSpeed;
-      line-height: 1.5;
+      line-height: 1;
     }
     
     ul[class],
