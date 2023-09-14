@@ -13,8 +13,7 @@ const Trending = lazy(() => import("./pages/Trending"));
 const Categories = lazy(() => import("./pages/Categories"));
 
 const AppWrapper = styled.div`
-  position: relative;
-  z-index: 2;
+overflow: hidden;
   min-height: 50vw;
   max-width: 1280px;
   margin: 0 auto;

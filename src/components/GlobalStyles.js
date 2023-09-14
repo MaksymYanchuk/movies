@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 const GlobalStyles = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500&family=Russo+One&display=swap');
     @import url('https://fonts.cdnfonts.com/css/sf-compact-display');
+    @import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap');
 
     :root {
       font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

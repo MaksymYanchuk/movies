@@ -1,23 +1,48 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-
+import { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import "swiper/css";
 
 const Wrapper = styled.div`
-    margin-bottom: 50px;
+  margin-bottom: 50px;
+`;
+const TrendingImageWrapper = styled.div`
+  display: flex;
+  &::before {
+    content: "${(props) => props.index}";
+    font-family: "Abyssinica SIL", sans-serif;
+    font-size: 214px;
+    z-index: -1;
+    font-weight: 500;
+    justify-content: left;
+  }
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+const TrendingImg = styled.img`
+  width: 138px;
+  height: 178px;
+  border-radius: 12px;
+  position: absolute;
+  left: 75px;
+  top: 30px;
 `;
 
 const Title = styled.h3`
   color: ${(props) => props.theme.colors.white};
   font-size: 28px;
   font-weight: 500;
+`;
+
+const ContentList = styled.ul`
+  width: 1312px;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 const Button = styled.button`
@@ -50,14 +75,6 @@ const CustomArrow = styled.p`
     height: 100%;
   }
 `;
-const ContentList = styled.ul`
-  gap: 14px;
-  display: flex;
-`;
-
-const ContentItem = styled.li`
-  flex-shrink: 0;
-`;
 
 const Img = styled.img`
   width: 250px;
@@ -66,49 +83,59 @@ const Img = styled.img`
   border: solid ${(props) => props.theme.colors.darkGrey} 1px;
 `;
 
-const MoviesList = (props) => {
+const MoviesList = ({ movieList, title }) => {
   const renderItems = (arr) => {
-    const items = arr.map((item) => {
-      return (
-        <SwiperSlide key={item.id}>
-          <ContentItem>
-            <Img src={item.image} alt={item.title} />
-          </ContentItem>
-        </SwiperSlide>
+    const items = arr.map((item, i) => {
+      switch (title) {
+        case "Latest & Trending":
+          return (
+            <SwiperSlide key={item.id}>
+              <TrendingImageWrapper index={i + 1}>
+                <TrendingImg src={item.image} alt={item.title} />
+              </TrendingImageWrapper>
+            </SwiperSlide>
+          );
 
-        //
-        // </ContentItem>
-      );
+        default:
+          return (
+            <SwiperSlide key={item.id}>
+              <Img src={item.image} alt={item.title} />
+            </SwiperSlide>
+          );
+      }
     });
-    return items;
+
+    return (
+      <Swiper spaceBetween={14} slidesPerView={5}>
+        {items}
+      </Swiper>
+    );
   };
 
-  const { movieList } = props;
+  const elements = useMemo(() => {
+    return renderItems(movieList);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movieList]);
 
-  const items = renderItems(movieList);
   return (
     <Wrapper>
       <TitleContainer>
-        <Title>{movieList[0]?.genre}</Title>
-        <Button>View More<CustomArrow/>
-        </Button>
+        <Title>{title}</Title>
+        {title !== "Latest & Trending" && (
+          <Button>
+            View More
+            <CustomArrow />
+          </Button>
+        )}
       </TitleContainer>
-      <ContentList>
-        <Swiper
-          spaceBetween={14}
-          slidesPerView={5}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
-        >
-          {items}
-        </Swiper>
-      </ContentList>
+      <ContentList>{elements}</ContentList>
     </Wrapper>
   );
 };
+
 MoviesList.propTypes = {
-    movieList: PropTypes.array,
-     
+  movieList: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default MoviesList;

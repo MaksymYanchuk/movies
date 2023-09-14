@@ -68,8 +68,8 @@ const AppLink = styled.a`
 `;
 const DecorateLine = styled.div`
     height: 1px;
-    width: calc(100% + 40px);
-    margin-left: -20px;
+    width: calc(100% + 100px);
+    margin-left: -50px;
     border-top: solid ${(props) => props.theme.colors.darkGrey} 1px;
 `;
 const FooterEnd = styled.div`
