@@ -1,24 +1,23 @@
 import axios from "axios";
-import { useState } from "react";
 
-const useMoviesService = () => {
-  const [process, setProcess] = useState("loading");
+const moviesService = () => {
   const _apiKey = "fa1733fc48msh6a8d997325a2d79p1c6c4ajsnb688a7d2767c";
   const _apiHost = 'moviesdatabase.p.rapidapi.com"';
   const _notFoundImg =
     "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg";
   const _url = "https://moviesdatabase.p.rapidapi.com/titles";
 
-  const _transformMoviesList = (movies, genre) => {
+  const _transformMoviesList = (movies, genre, numbered) => {
     return {
       genre,
+      numbered,
       id: movies.id,
       title: movies.titleText.text,
       image: movies.primaryImage?.url || _notFoundImg,
     };
   };
 
-  const getMovies = async (genre) => {
+  const getMovies = async (genre, numbered) => {
     let options = {
       method: "GET",
       url: _url,
@@ -48,18 +47,16 @@ const useMoviesService = () => {
     try {
       const response = await axios.request(options);
       return response.data.results.map((item) =>
-        _transformMoviesList(item, genre)
+        _transformMoviesList(item, genre, numbered)
       );
     } catch (error) {
-      setProcess('confirmed')
       console.error(error);
     }
   };
 
   return {
     getMovies,
-    process,
   };
 };
 
-export default useMoviesService;
+export default moviesService;

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import ErrorMessage from "./errorMessage/ErrorMessage";
 
 class ErrorBoundary extends Component {
   state = {
@@ -14,7 +15,7 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.error) {
-      return <p>Error</p>;
+      return <ErrorMessage></ErrorMessage>;
     }
 
     // eslint-disable-next-line react/prop-types
