@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { Button, ArrowDecoration} from "../style/Button";
 import MoviesListItem from "./MoviesListItem";
 import MoviesListItemNumbered from "./MoviesListItemNumbered";
 
@@ -10,12 +11,6 @@ import "swiper/css";
 
 const Wrapper = styled.div`
   margin-bottom: 50px;
-`;
-
-const Title = styled.h3`
-  color: ${(props) => props.theme.colors.white};
-  font-size: 28px;
-  font-weight: 500;
 `;
 
 const ContentList = styled.ul`
@@ -28,36 +23,14 @@ const TitleContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-const Button = styled.button`
-  padding: 5px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 30px;
-  width: 120px;
+const Title = styled.h3`
   color: ${(props) => props.theme.colors.white};
-  border: 1px solid ${(props) => props.theme.colors.darkGrey};
-  background-color: ${(props) => props.theme.colors.darkGrey};
-  border-radius: 15px;
+  font-size: 28px;
+  font-weight: 500;
+  z-index:20;
 `;
 
-const CustomArrow = styled.p`
-  position: relative;
-  width: 8px;
-  height: 8px;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 2px solid ${(props) => props.theme.colors.white};
-    border-width: 0 2px 2px 0;
-    transform: rotate(-45deg);
-    width: 100%;
-    height: 100%;
-  }
-`;
 
 const MoviesList = ({ movieList, title, numbered }) => {
   const renderItems = (arr) => {
@@ -104,9 +77,9 @@ const MoviesList = ({ movieList, title, numbered }) => {
       <TitleContainer>
         <Title>{title}</Title>
         {!numbered && (
-          <Button>
+          <Button height={"30px"} width={"120px"}>
             View More
-            <CustomArrow />
+            <ArrowDecoration />
           </Button>
         )}
       </TitleContainer>

@@ -6,7 +6,7 @@ const DivWrapper = styled.div`
   display: block;
   overflow: hidden;
   background: ${(props) => props.theme.colors.background};
-  margin: 0 auto;
+  margin: 100px auto 0;
 `;
 const DivInner = styled.div`
   @keyframes anim {

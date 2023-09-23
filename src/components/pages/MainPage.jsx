@@ -1,6 +1,7 @@
 import moviesService from "../../services/moviesServices";
 import { useEffect, useState } from "react";
 import MoviesList from "../MoviesList";
+import MainPagePreview from "../MainPagePreview";
 import ErrorBoundary from "../ErrorBoundary";
 
 import Spinner from "../Spinner";
@@ -41,32 +42,32 @@ const MainPage = () => {
   const [process, setProcess] = useState("loading");
 
   const { getMovies } = moviesService();
-  const onLoad = async () => {
-    try {
-      const genreData = await Promise.all(
-        genresToLoad.map((item) => getMovies(item.genre, item.numbered))
-      );
-
-      console.log(genreData);
-      const updatedGenreList = genresToLoad.reduce((acc, genre, index) => {
-        const formattedGenre = (
-          genre.genre.charAt(0).toLowerCase() + genre.genre.slice(1)
-        ).replace(/ /g, "");
-        acc[formattedGenre] = genreData[index];
-
-        return acc;
-      }, {});
-      setGenreList(updatedGenreList);
-      setProcess("confirmed");
-    } catch (error) {
-      console.log(error);
-      setProcess("error");
-    }
-  };
 
   useEffect(() => {
-    onLoad();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const fetchData = async () => {
+      try {
+        const genreData = await Promise.all(
+          genresToLoad.map((item) => getMovies(item.genre, item.numbered))
+        );
+  
+        const updatedGenreList = genresToLoad.reduce((acc, genre, index) => {
+          const formattedGenre = (
+            genre.genre.charAt(0).toLowerCase() + genre.genre.slice(1)
+          ).replace(/[\s&]/g, "");
+          acc[formattedGenre] = genreData[index];
+          return acc;
+        }, {});
+  
+        setGenreList(updatedGenreList);
+        setProcess("confirmed");
+      } catch (error) {
+        console.log(error);
+        setProcess("error");
+      }
+    };
+  
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderProcessState = () => {
@@ -88,10 +89,9 @@ const MainPage = () => {
       );
     })
   }
-
-  console.log(process);
   return (
     <>
+     {Object.keys(genreList).length > 0 && <MainPagePreview movie={genreList?.latestTrending?.[0]}/>}
       {renderProcessState()}
     </>
   );

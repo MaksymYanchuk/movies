@@ -46,6 +46,7 @@ const Block = styled.div`
 `;
 const Title = styled.h3`
   font-weight: 500;
+  font-size: 18px;
 `;
 
 const Link = styled.a`
@@ -67,10 +68,10 @@ const AppLink = styled.a`
   background: url(${(props) => props.image}) no-repeat center;
 `;
 const DecorateLine = styled.div`
-    height: 1px;
-    width: calc(100% + 100px);
-    margin-left: -50px;
-    border-top: solid ${(props) => props.theme.colors.darkGrey} 1px;
+  height: 1px;
+  width: calc(100% + 100px);
+  margin-left: -50px;
+  border-top: solid ${(props) => props.theme.colors.darkGrey} 1px;
 `;
 const FooterEnd = styled.div`
   padding-top: 10px;
@@ -131,7 +132,6 @@ const Footer = () => {
                 color: "rgba(255,255,255,.9)",
                 borderRadius: "25px",
                 paddingLeft: 15,
-                paddingRight: 15,
                 width: 170,
               }),
               option: (provided, state) => ({
@@ -151,6 +151,7 @@ const Footer = () => {
               singleValue: (styles) => ({
                 ...styles,
                 color: "rgba(255,255,255,.9)",
+                height: 25,
                 ...dot("/src/assets/checkmark.svg", null, true),
               }),
             }}

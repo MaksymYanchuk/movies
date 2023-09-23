@@ -6,7 +6,7 @@ const GlobalStyles = createGlobalStyle`
 
     :root {
       font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-      line-height: 1.5;
+      line-height: normal;
       font-weight: 400;
       color-scheme: light dark;
       color: ${props => props.theme.colors.primary};
@@ -80,7 +80,6 @@ const GlobalStyles = createGlobalStyle`
       min-height: 100vh;
       scroll-behavior: smooth;
       text-rendering: optimizeSpeed;
-      line-height: 1;
     }
     
     ul[class],

@@ -2,6 +2,10 @@ import styled from "styled-components";
 import logo from "../assets/logo.svg";
 import { Link, NavLink } from "react-router-dom";
 
+const Container = styled.div`
+  position: absolute;
+  z-index: 20;
+`;
 const Wrapper = styled.div`
   display: flex;
   font-family: "SF Compact Display", sans-serif;
@@ -9,7 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-  const Logo = styled.img`
+const Logo = styled.img`
   width: 15vmax;
   min-width: 200px;
 `;
@@ -64,69 +68,71 @@ const handleSubmit = () => {};
 
 const Header = () => {
   return (
-    <Wrapper>
-      <Link to={"/"}>
-        <Logo src={logo}></Logo>
-      </Link>
-      <Nav>
-        <Ul>
-          <Li>
-            <NavLink
-              to={"/"}
-              style={({ isActive }) => ({
-                color: isActive ? "#9f0013" : "inherit",
-              })}
-            >
-              Home
-            </NavLink>
-          </Li>
-          <Li>
-            <NavLink
-              to={"/movies"}
-              style={({ isActive }) => ({
-                color: isActive ? "#9f0013" : "inherit",
-              })}
-            >
-              Movies
-            </NavLink>
-          </Li>
-          <Li>
-            <NavLink
-              to={"/series"}
-              style={({ isActive }) => ({
-                color: isActive ? "#9f0013" : "inherit",
-              })}
-            >
-              Series
-            </NavLink>
-          </Li>
-          <Li>
-            <NavLink
-              to={"/trending"}
-              style={({ isActive }) => ({
-                color: isActive ? "#9f0013" : "inherit",
-              })}
-            >
-              Trending
-            </NavLink>
-          </Li>
-          <Li>
-            <NavLink
-              to={"/categories"}
-              style={({ isActive }) => ({
-                color: isActive ? "#9f0013" : "inherit",
-              })}
-            >
-              Categories
-            </NavLink>
-          </Li>
-        </Ul>
-      </Nav>
-      <Form onSubmit={handleSubmit}>
-        <Input placeholder="Search Movies, Series..." type="input"></Input>
-        <Button type="submit" />
-      </Form>
-    </Wrapper>
+    <Container>
+      <Wrapper>
+        <Link to={"/"}>
+          <Logo src={logo}></Logo>
+        </Link>
+        <Nav>
+          <Ul>
+            <Li>
+              <NavLink
+                to={"/"}
+                style={({ isActive }) => ({
+                  color: isActive ? "#9f0013" : "inherit",
+                })}
+              >
+                Home
+              </NavLink>
+            </Li>
+            <Li>
+              <NavLink
+                to={"/movies"}
+                style={({ isActive }) => ({
+                  color: isActive ? "#9f0013" : "inherit",
+                })}
+              >
+                Movies
+              </NavLink>
+            </Li>
+            <Li>
+              <NavLink
+                to={"/series"}
+                style={({ isActive }) => ({
+                  color: isActive ? "#9f0013" : "inherit",
+                })}
+              >
+                Series
+              </NavLink>
+            </Li>
+            <Li>
+              <NavLink
+                to={"/trending"}
+                style={({ isActive }) => ({
+                  color: isActive ? "#9f0013" : "inherit",
+                })}
+              >
+                Trending
+              </NavLink>
+            </Li>
+            <Li>
+              <NavLink
+                to={"/categories"}
+                style={({ isActive }) => ({
+                  color: isActive ? "#9f0013" : "inherit",
+                })}
+              >
+                Categories
+              </NavLink>
+            </Li>
+          </Ul>
+        </Nav>
+        <Form onSubmit={handleSubmit}>
+          <Input placeholder="Search Movies, Series..." type="input"></Input>
+          <Button type="submit" />
+        </Form>
+      </Wrapper>
+    </Container>
   );
 };
 

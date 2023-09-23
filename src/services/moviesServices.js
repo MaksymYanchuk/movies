@@ -13,7 +13,10 @@ const moviesService = () => {
       numbered,
       id: movies.id,
       title: movies.titleText.text,
+      description: movies.plot.plotText.plainText,
       image: movies.primaryImage?.url || _notFoundImg,
+      genres: movies.genres.genres,
+      runtime: movies.runtime.seconds,
     };
   };
 
