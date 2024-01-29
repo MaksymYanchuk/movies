@@ -13,15 +13,20 @@ const Trending = lazy(() => import("./pages/Trending"));
 const Categories = lazy(() => import("./pages/Categories"));
 
 const AppWrapper = styled.div`
-  position:relative;
-overflow: hidden;
-  min-height: 50vw;
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 25px 50px;
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.colors.backgroundIn};
+
+  @media (max-width: 1280px) {
+    padding: 15px 30px;
+  }
+
 `;
 const Main = styled.div`
   flex: 1 1 auto;

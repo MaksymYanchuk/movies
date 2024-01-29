@@ -1,34 +1,34 @@
 import styled from "styled-components";
 
-export const ArrowDecoration = styled.div`
+export const CustomArrow = styled.div`
   position: relative;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   top: ${(props) => props.top};
   left: ${(props) => props.left};
 
   &::before {
     content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 2px solid ${(props) => props.color|| props.theme.colors.white};
+    position: ${(props) => props.position || "absolute"};;
+    top: ${(props) => props.top || "0px" };
+    left: ${(props) => props.left || "0px"};
+    border: 2px solid ${(props) => props.color || props.theme.colors.white};
     border-width: 0 2px 2px 0;
-    transform: rotate(-45deg);
-    width: 100%;
-    height: 100%;
+    transform:  ${(props) => props.transform || "rotate(-45deg)"}; 
+    width: ${(props) => props.width || "100%"};
+    height: ${(props) => props.height || "100%"};
   }
 `;
 
-export const CircleDecoration = styled.div`
+export const CustomCircle = styled.div`
   position: relative;
   width: 20px;
   height: 20px;
-  background-color: ${(props) => props.backgroundColor || "black"};
+  background: ${(props) => props.background || "black"};
   border-radius: 200px;
 `;
 
-export const TriangleDecoration = styled.div`
+export const CustomTriangle = styled.div`
   position: relative;
   top: 6px;
   left: 6px;
@@ -41,24 +41,32 @@ export const TriangleDecoration = styled.div`
 `;
 
 export const Button = styled.button`
-  backdrop-filter: ${(props) => props.backdropFilter};
+  backdrop-filter: blur(4px);
   font-size: ${(props) => props.fontSize || "16px"};
   white-space: nowrap;
-  padding: 5px 15px;
+  padding: 5px;
   display: flex;
   justify-content: center;
   gap: ${(props) => props.gap || "4px"};
   align-items: center;
   height: ${(props) => props.height || "54px"};
-  width: ${(props) => props.width || "206px"};
+  min-width: ${(props) => props.width || "206px"};
   color: ${(props) => props.color || props.theme.colors.white};
-  background-color: ${(props) =>
-    props.backgroundColor || props.theme.colors.darkGrey};
+  background: ${(props) => props.background || props.theme.colors.darkGrey};
   border: 1px solid ${(props) => props.theme.colors.darkGrey};
   border-radius: 200px;
-  z-index: 20;
+  z-index: 0;
 
   &:focus {
-  outline: none;
-}
+    outline: none;
+  }
+
+  @media ${props => props.theme.media.phone} {
+    font-size: 16px;
+    height: 30px;
+    min-width: 120px
+    
+  }
 `;
+
+

@@ -1,74 +1,73 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useMemo } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Button, ArrowDecoration} from "../style/Button";
+import Slider from "./Slider";
+
+import { SwiperSlide } from "swiper/react";
+
+import { Button, CustomArrow } from "../style/Button";
 import MoviesListItem from "./MoviesListItem";
 import MoviesListItemNumbered from "./MoviesListItemNumbered";
 
-import "swiper/css";
-
 const Wrapper = styled.div`
+  position: relative;
+  z-index:1;
   margin-bottom: 50px;
-`;
-
-const ContentList = styled.ul`
-  width: 1312px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+
+  @media ${(props) => props.theme.media.phone} {
+    margin-bottom: 10px;
+  }
 `;
 
 const Title = styled.h3`
   color: ${(props) => props.theme.colors.white};
   font-size: 28px;
   font-weight: 500;
-  z-index:20;
+  z-index: 1;
+
+  @media ${(props) => props.theme.media.phone} {
+    font-size: 24px;
+  }
 `;
 
-
-
 const MoviesList = ({ movieList, title, numbered }) => {
-  const renderItems = (arr) => {
-    const items = arr.map((item, i) => {
-      if (numbered) {
-        return (
-          <SwiperSlide key={item.id}>
-            <MoviesListItemNumbered
-              key={item.id}
-              id={item.id}
-              image={item.image}
-              title={item.title}
-              index={i}
-            />
-          </SwiperSlide>
-        );
-      }
-      return (
-        <SwiperSlide key={item.id}>
-          <MoviesListItem
-            key={item.id}
-            id={item.id}
-            image={item.image}
-            title={item.title}
-          />
-        </SwiperSlide>
-      );
-    });
-
+  const renderSlider = () => {
     return (
-      <Swiper spaceBetween={14} slidesPerView={5}>
-        {items}
-      </Swiper>
+      <Slider>
+        {movieList.map((movie, i) => {
+          return (
+            <SwiperSlide key={i}>
+              {numbered ? (
+                <MoviesListItemNumbered
+                  image={movie.image}
+                  title={movie.title}
+                  index={i}
+                />
+              ) : (
+                <MoviesListItem image={movie.image} title={movie.title} />
+              )}
+            </SwiperSlide>
+          );
+        })}
+      </Slider>
     );
   };
 
-  const elements = useMemo(() => {
-    return renderItems(movieList);
+  const slider = useMemo(() => {
+    return renderSlider();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieList]);
 
@@ -79,11 +78,11 @@ const MoviesList = ({ movieList, title, numbered }) => {
         {!numbered && (
           <Button height={"30px"} width={"120px"}>
             View More
-            <ArrowDecoration />
+            <CustomArrow />
           </Button>
         )}
       </TitleContainer>
-      <ContentList>{elements}</ContentList>
+      {slider}
     </Wrapper>
   );
 };

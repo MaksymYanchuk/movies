@@ -1,17 +1,17 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500&family=Russo+One&display=swap');
-    @import url('https://fonts.cdnfonts.com/css/sf-compact-display');
-    @import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap');
 
+   #root{
+    height: 100%;
+   }
     :root {
+      height: 100%;
       font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
       line-height: normal;
       font-weight: 400;
       color-scheme: light dark;
-      color: ${props => props.theme.colors.primary};
-      background-color: ${props => props.theme.colors.backgroundOut};
-    
+      color: ${(props) => props.theme.colors.primary};
+      background-color: ${(props) => props.theme.colors.backgroundOut};
       font-synthesis: none;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
@@ -77,7 +77,7 @@ const GlobalStyles = createGlobalStyle`
     }
     
     body {
-      min-height: 100vh;
+      height:100%;
       scroll-behavior: smooth;
       text-rendering: optimizeSpeed;
     }
@@ -113,5 +113,5 @@ const GlobalStyles = createGlobalStyle`
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
-}`
+}`;
 export default GlobalStyles;

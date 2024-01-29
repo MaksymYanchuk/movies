@@ -1,91 +1,123 @@
 import styled from "styled-components";
-import Select from "react-select";
-
-const dot = (scr, state = null, isDefaultValue = false) => {
-  if ((state !== null && state.isSelected === true) || isDefaultValue) {
-    return {
-      alignItems: "center",
-      display: "flex",
-
-      ":before": {
-        content: "' '",
-        backgroundImage: `url(${scr})`,
-        backgroundRepeat: "no-repeat",
-        display: "block",
-        height: 16,
-        width: 16,
-        marginRight: 10,
-      },
-    };
-  } else {
-    return {
-      alignItems: "center",
-      display: "flex",
-
-      ":before": {
-        content: "' '",
-        display: "block",
-        height: 16,
-        width: 16,
-        marginRight: 10,
-      },
-    };
-  }
-};
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 133px;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 40px;
+
+  @media ${(props) => props.theme.media.phone} {
+    flex-wrap: wrap;
+  }
 `;
 const Block = styled.div`
   display: flex;
-  flex-direction: ${(props) => props.direction || "column"};
+  flex-direction: column;
   gap: ${(props) => props.gap || "18px"};
+
+  @media ${(props) => props.theme.media.phone} {
+    flex: 0 1 50%;
+    padding-bottom: 20px;
+
+    gap: ${(props) => props.gap || "12px"};
+  }
 `;
+
 const Title = styled.h3`
   font-weight: 500;
   font-size: 18px;
+
+  @media ${(props) => props.theme.media.phone} {
+    text-align: center;
+    font-size: 16px;
+  }
 `;
 
-const Link = styled.a`
-  color: ${(props) => props.theme.colors.grey};
-  font-weight: 400;
+const MediaWrapper = styled(Block)`
+  flex-direction: row;
+  justify-content: center;
 `;
 
 const Media = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
-  width: 44px;
+  width: 42px;
   height: 44px;
   background: url(${(props) => props.image}) no-repeat
     ${(props) => props.theme.colors.darkGrey} center;
 `;
 
-const AppLink = styled.a`
-  width: 157px;
-  height: 48px;
-  background: url(${(props) => props.image}) no-repeat center;
+const AppWrapper = styled(Block)`
+  @media ${(props) => props.theme.media.phone} {
+    flex: 0 1 100%;
+  }
 `;
+
+const AppButtonsWrapper = styled.div`
+  width: 157px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 17px;
+
+  @media ${(props) => props.theme.media.phone} {
+    flex-direction: row;
+    gap: 5px;
+    width: auto;
+  }
+`;
+const AppLink = styled(Link)`
+  height: 41px;
+  @media ${(props) => props.theme.media.phone} {
+    height: 100%;
+  }
+`;
+
+const StyledImg = styled.img`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+`;
+
 const DecorateLine = styled.div`
   height: 1px;
   width: calc(100% + 100px);
   margin-left: -50px;
   border-top: solid ${(props) => props.theme.colors.darkGrey} 1px;
 `;
+
 const FooterEnd = styled.div`
   padding-top: 10px;
-  display: grid;
-  grid-template-columns: 343px 144px 144px 71px 43.3%;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
-const P = styled(Link)``;
+const FooterEndText = styled.div`
+  display: flex;
+  gap: 40px;
+`;
+
+const StyledLink = styled(Link)`
+  font-weight: 400;
+  color: ${(props) => props.theme.colors.grey};
+  @media ${(props) => props.theme.media.phone} {
+    text-align: center;
+  }
+`;
+const StyledP = styled.p`
+  color: ${(props) => props.theme.colors.grey};
+`;
 
 const Logo = styled.img`
-  width: 10vmax;
+  width: 120px;
   min-width: 100px;
-  justify-self: end;
+  align-self: flex-end;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const Footer = () => {
@@ -95,91 +127,64 @@ const Footer = () => {
         <Block>
           <Title>Company</Title>
           <Block gap={"10px"}>
-            <Link>About Us</Link>
-            <Link>Careers</Link>
+            <StyledLink>About Us</StyledLink>
+            <StyledLink>Careers</StyledLink>
           </Block>
         </Block>
 
         <Block>
           <Title>Need Help</Title>
           <Block gap={"10px"}>
-            <Link>Visit Help Center?</Link>
-            <Link>Share Feedback</Link>
+            <StyledLink>Visit Help Center?</StyledLink>
+            <StyledLink>Share Feedback</StyledLink>
           </Block>
-        </Block>
-
-        <Block>
-          <Title>View Website in</Title>
-          <Select
-            defaultValue={{ value: "english", label: "English" }}
-            options={[
-              { value: "english", label: "English" },
-              { value: "ukrainian", label: "Ukrainian" },
-            ]}
-            styles={{
-              menu: (provided) => ({
-                ...provided,
-                borderRadius: 5,
-              }),
-              menuList: (provided) => ({
-                ...provided,
-                padding: 0,
-                borderRadius: 5,
-              }),
-              control: (provided) => ({
-                ...provided,
-                backgroundColor: "rgba(255,255,255,.2)",
-                color: "rgba(255,255,255,.9)",
-                borderRadius: "25px",
-                paddingLeft: 15,
-                width: 170,
-              }),
-              option: (provided, state) => ({
-                ...provided,
-                backgroundColor: "grey",
-                color: "rgba(255,255,255,.9)",
-                ...dot("/src/assets/checkmark.svg", state),
-              }),
-              input: (styles) => ({
-                ...styles,
-                display: "none",
-                padding: 20,
-              }),
-              placeholder: (styles) => ({
-                ...styles,
-              }),
-              singleValue: (styles) => ({
-                ...styles,
-                color: "rgba(255,255,255,.9)",
-                height: 25,
-                ...dot("/src/assets/checkmark.svg", null, true),
-              }),
-            }}
-          />
         </Block>
 
         <Block>
           <Title>Social Media</Title>
-          <Block direction={"row"} gap={"14px"}>
-            <Media image={"/src/assets/instagram.svg"}></Media>
-            <Media image={"/src/assets/twitter.svg"}></Media>
-          </Block>
+          <MediaWrapper direction={"row"} gap={"14px"}>
+            <Media>
+              <Link>
+                <StyledImg
+                  src="/src/assets/instagram.svg"
+                  width={"20px"}
+                  height={"20px"}
+                />
+              </Link>
+            </Media>
+            <Media>
+              <Link>
+                <StyledImg
+                  src="/src/assets/twitter.svg"
+                  width={"20px"}
+                  height={"20px"}
+                />
+              </Link>
+            </Media>
+          </MediaWrapper>
         </Block>
 
-        <Block>
+        <AppWrapper>
           <Title>Download Our App</Title>
-          <Block gap={"10px"}>
-            <AppLink image={"/src/assets/app-store.svg"}></AppLink>
-            <AppLink image={"/src/assets/google-play.svg"}></AppLink>
-          </Block>
-        </Block>
+          <AppButtonsWrapper>
+            <AppLink>
+              <StyledImg src="/src/assets/app-store.svg" width={"100%"} />
+            </AppLink>
+            <AppLink>
+              <StyledImg src="/src/assets/google-play.svg" width={"100%"} />
+            </AppLink>
+          </AppButtonsWrapper>
+        </AppWrapper>
       </Wrapper>
+
       <DecorateLine />
       <FooterEnd>
-        <P>© 2023 MovieDB. All Rights Reserved.</P>
-        <Link>Terms Of Use </Link>
-        <Link>Privacy Policy</Link>
-        <Link>FAQ</Link>
+        <FooterEndText>
+          <StyledP>© 2023 MovieDB. All Rights Reserved.</StyledP>
+          <StyledLink>Terms Of Use </StyledLink>
+          <StyledLink>Privacy Policy</StyledLink>
+          <StyledLink>FAQ</StyledLink>
+        </FooterEndText>
         <Logo src="/src/assets/logo.svg" />
       </FooterEnd>
     </>

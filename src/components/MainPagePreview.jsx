@@ -2,10 +2,11 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import {
   Button,
-  ArrowDecoration,
-  TriangleDecoration,
-  CircleDecoration,
+  CustomArrow,
+  CustomCircle,
+  CustomTriangle,
 } from "../style/Button";
+
 
 const BackgroundImg = styled.img`
   height: 950px;
@@ -14,12 +15,18 @@ const BackgroundImg = styled.img`
   top: 0;
   left: 0;
   opacity: 0.5;
+  z-index: 0;
 `;
 
 const Wrapper = styled.div`
   position: relative;
-  margin: 155px auto;
-  width: 435px;
+  z-index: 1;
+  margin: 150px auto 50px auto;
+  max-width: 435px;
+
+  @media ${(props) => props.theme.media.phone} {
+    margin: 50px auto 20px auto;
+  }
 `;
 const Title = styled.div`
   font-weight: bold;
@@ -27,11 +34,19 @@ const Title = styled.div`
   text-align: center;
   font-size: 60px;
   padding-bottom: 30px;
+  @media ${(props) => props.theme.media.phone} {
+    font-size: 38px;
+  }
 `;
-const Info = styled.ul`
+const InfoList = styled.ul`
   display: flex;
   justify-content: center;
   gap: 35px;
+
+  @media ${(props) => props.theme.media.phone} {
+    gap: 0px;
+    flex-wrap: wrap;
+  }
 `;
 const InfoItem = styled.li`
   font-size: 20px;
@@ -41,16 +56,35 @@ const InfoItem = styled.li`
   &:first-child {
     list-style-type: none;
   }
+
+  @media ${(props) => props.theme.media.phone} {
+    font-size: 16px;
+    flex: 0 1 50%;
+    list-style-type: none;
+    text-align: center;
+    &::before {
+      content: "•";
+      position: relative;
+      left: -20px;
+    }
+  }
 `;
 const Description = styled.p`
   padding-top: 20px;
   text-align: center;
+  @media ${(props) => props.theme.media.phone} {
+    font-size: 14px;
+  }
 `;
 
 const ButtonContainer = styled.div`
   padding-top: 30px;
   display: flex;
   justify-content: space-between;
+
+  @media ${(props) => props.theme.media.phone} {
+    justify-content: space-evenly;
+  }
 `;
 
 const getMovieTime = (seconds) => {
@@ -67,42 +101,41 @@ const getMovieTime = (seconds) => {
 };
 
 const MainPagePreview = ({ movie }) => {
-  console.log(movie);
   const { image, title, genres, description, runtime } = movie;
-  console.log(runtime);
+
   return (
     <div>
       {movie && <BackgroundImg src={image}></BackgroundImg>}
       <Wrapper>
         <Title>{title}</Title>
-        <Info>
+        <InfoList>
           {genres &&
             genres.map((genre) => (
               <InfoItem key={genre.id}>{genre.text}</InfoItem>
             ))}
           {getMovieTime(runtime)}
-        </Info>
+        </InfoList>
         <Description>{description}</Description>
         <ButtonContainer>
           <Button
             fontSize={"20px"}
             color={"black"}
-            backgroundColor={"white"}
+            background={"white"}
             gap={"12px"}
           >
-            <CircleDecoration backgroundColor="black">
-              <TriangleDecoration />
-            </CircleDecoration>
+            <CustomCircle background={"black"}>
+              <CustomTriangle />
+            </CustomCircle>
             Watch Now
           </Button>
-          <Button gap={"12px"} fontSize={"20px"} backdropFilter={"blur(4px)"}>
-            <CircleDecoration backgroundColor="white">
-              <ArrowDecoration
+          <Button gap={"12px"} fontSize={"20px"}>
+            <CustomCircle background={"white"}>
+              <CustomArrow
                 color="black"
-                top={"6px"}
-                left={"5px"}
-              ></ArrowDecoration>
-            </CircleDecoration>
+                top={"2.5px"}
+                left={"2px"}
+              ></CustomArrow>
+            </CustomCircle>
             More Info
           </Button>
         </ButtonContainer>

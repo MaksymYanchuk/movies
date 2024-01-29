@@ -3,13 +3,24 @@ import PropTypes from "prop-types";
 
 const ImgWrapper = styled.div`
   display: flex;
+
   &::before {
     content: "${(props) => props.index}";
     font-family: "Abyssinica SIL", sans-serif;
     font-size: 214px;
-    z-index: -1;
+    z-index: 0;
     font-weight: 500;
-    justify-content: left;
+    min-height: 178px;
+
+    @media ${(props) => props.theme.media.phone} {
+      font-size: 80px;
+      position: absolute;
+      top: 80px;
+      left: 30px;
+    }
+  }
+  @media ${(props) => props.theme.media.phone} {
+    justify-content: center;
   }
 `;
 
@@ -20,6 +31,10 @@ const Img = styled.img`
   position: absolute;
   left: 75px;
   top: 30px;
+
+  @media ${(props) => props.theme.media.phone} {
+    position: static;
+  }
 `;
 
 const MoviesListItemNumbered = ({ image, title, index }) => {
