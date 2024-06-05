@@ -6,13 +6,13 @@ import Slider from "./Slider";
 
 import { SwiperSlide } from "swiper/react";
 
-import { Button, CustomArrow } from "../style/Button";
-import MoviesListItem from "./MoviesListItem";
-import MoviesListItemNumbered from "./MoviesListItemNumbered";
+import { Button, CustomArrow } from "../style/styledComponents";
+import TitlesListItem from "./TitleListItem";
+import TitlesListItemNumbered from "./TitleListItemNumbered";
 
 const Wrapper = styled.div`
   position: relative;
-  z-index:1;
+  z-index: 1;
   margin-bottom: 50px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -43,7 +43,8 @@ const Title = styled.h3`
   }
 `;
 
-const MoviesList = ({ movieList, title, numbered }) => {
+const TitleList = ({ movieList, title, numbered }) => {
+
   const renderSlider = () => {
     return (
       <Slider>
@@ -51,13 +52,20 @@ const MoviesList = ({ movieList, title, numbered }) => {
           return (
             <SwiperSlide key={i}>
               {numbered ? (
-                <MoviesListItemNumbered
+                <TitlesListItemNumbered
                   image={movie.image}
                   title={movie.title}
+                  id={movie.id}
                   index={i}
+                  isSeries={movie.isSeries}
                 />
               ) : (
-                <MoviesListItem image={movie.image} title={movie.title} />
+                <TitlesListItem
+                  image={movie.image}
+                  title={movie.title}
+                  id={movie.id}
+                  isSeries={movie.isSeries}
+                />
               )}
             </SwiperSlide>
           );
@@ -87,10 +95,10 @@ const MoviesList = ({ movieList, title, numbered }) => {
   );
 };
 
-MoviesList.propTypes = {
+TitleList.propTypes = {
   movieList: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   numbered: PropTypes.bool.isRequired,
 };
 
-export default MoviesList;
+export default TitleList;

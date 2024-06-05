@@ -1,6 +1,6 @@
+import ErrorMessage from "../ErrorMessage";
 const Page404 = () => {
-    return <p>Page404</p>;
-  };
-  
-  export default Page404;
-  
+  return <ErrorMessage text={"Page not found"} />;
+};
+
+export default Page404;

@@ -5,8 +5,9 @@ import {
   CustomArrow,
   CustomCircle,
   CustomTriangle,
-} from "../style/Button";
+} from "../style/styledComponents";
 
+import { getMovieTime } from "../utils/utils";
 
 const BackgroundImg = styled.img`
   height: 950px;
@@ -87,21 +88,9 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const getMovieTime = (seconds) => {
-  const hours = Math.floor(seconds / 3600) + "h";
-  const minutes = Math.floor((seconds % 3600) / 60) + "m";
-
-  return (
-    <>
-      <InfoItem>
-        {hours} {minutes}
-      </InfoItem>
-    </>
-  );
-};
-
-const MainPagePreview = ({ movie }) => {
+const HomePagePreview = ({ movie }) => {
   const { image, title, genres, description, runtime } = movie;
+  const { hours, minutes } = getMovieTime(runtime);
 
   return (
     <div>
@@ -113,7 +102,9 @@ const MainPagePreview = ({ movie }) => {
             genres.map((genre) => (
               <InfoItem key={genre.id}>{genre.text}</InfoItem>
             ))}
-          {getMovieTime(runtime)}
+          <InfoItem>
+            {hours} {minutes}
+          </InfoItem>
         </InfoList>
         <Description>{description}</Description>
         <ButtonContainer>
@@ -144,7 +135,7 @@ const MainPagePreview = ({ movie }) => {
   );
 };
 
-MainPagePreview.propTypes = {
+HomePagePreview.propTypes = {
   movie: PropTypes.shape({
     image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -154,4 +145,4 @@ MainPagePreview.propTypes = {
   }),
 };
 
-export default MainPagePreview;
+export default HomePagePreview;

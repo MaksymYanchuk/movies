@@ -3,10 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import logo from "../assets/logo.svg";
+import HederSearchForm from "./HeaderSearchForm";
 
 const Container = styled.div`
   position: relative;
   z-index: 4;
+  margin-bottom: 20px;
 `;
 
 const Wrapper = styled.div`
@@ -85,50 +87,6 @@ const Li = styled.li`
   }
 `;
 
-const Form = styled.form`
-  display: flex;
-  flex-wrap: nowrap;
-  border-radius: 50px;
-  background-color: transparent;
-  border: solid rgb(255, 255, 255, 0.2) 1px;
-  height: 39px;
-
-  @media ${(props) => props.theme.media.phone} {
-    align-self: flex-start;
-  }
-`;
-const Input = styled.input`
-  font-size: 16px;
-  border: none;
-  width: 250px;
-  height: 39px;
-  outline: none;
-  background-color: transparent;
-  color: ${(props) => props.color || props.theme.colors.primary};
-  padding: 20px;
-
-  @media (max-width: 1280px) {
-    width: 200px;
-    font-size: 14px;
-  }
-
-  @media (max-width: 900px) {
-    width: 170px;
-    font-size: 12px;
-  }
-`;
-
-const Button = styled.button`
-  border: none;
-  background: transparent url(/src/assets/search.svg) no-repeat center;
-  background-size: contain;
-  align-self: center;
-  height: 25px;
-  &:focus {
-    outline: none;
-  }
-`;
-
 const BurgerIcon = styled.div`
   display: none;
   position: absolute;
@@ -169,9 +127,16 @@ const BurgerIcon = styled.div`
   }
 `;
 
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/movies/", label: "Movies" },
+  { to: "/series/", label: "Series" },
+  { to: "/trending/", label: "Top 250" },
+  { to: "/categories/", label: "Categories" },
+];
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -183,8 +148,6 @@ const Header = () => {
     }
   };
 
-  const handleSubmit = () => {};
-
   return (
     <Container>
       <BurgerIcon onClick={toggleMenu} className={isMenuOpen ? "open" : ""} />
@@ -192,72 +155,24 @@ const Header = () => {
         <Link to={"/"}>
           <Logo src={logo}></Logo>
         </Link>
-        <Nav
-          className={isMenuOpen ? "open" : ""}
-          onClick={(e) => e.stopPropagation()}
-        >
+        <Nav className={isMenuOpen ? "open" : ""}>
           <Ul className={isMenuOpen ? "open" : ""}>
-            <Li>
-              <NavLink
-                onClick={isMenuOpen ? toggleMenu : null}
-                to={"/"}
-                style={({ isActive }) => ({
-                  color: isActive ? "#9f0013" : "inherit",
-                })}
-              >
-                Home
-              </NavLink>
-            </Li>
-            <Li>
-              <NavLink
-                onClick={isMenuOpen ? toggleMenu : null}
-                to={"/movies"}
-                style={({ isActive }) => ({
-                  color: isActive ? "#9f0013" : "inherit",
-                })}
-              >
-                Movies
-              </NavLink>
-            </Li>
-            <Li>
-              <NavLink
-                onClick={isMenuOpen ? toggleMenu : null}
-                to={"/series"}
-                style={({ isActive }) => ({
-                  color: isActive ? "#9f0013" : "inherit",
-                })}
-              >
-                Series
-              </NavLink>
-            </Li>
-            <Li>
-              <NavLink
-                onClick={isMenuOpen ? toggleMenu : null}
-                to={"/trending"}
-                style={({ isActive }) => ({
-                  color: isActive ? "#9f0013" : "inherit",
-                })}
-              >
-                Trending
-              </NavLink>
-            </Li>
-            <Li>
-              <NavLink
-                onClick={isMenuOpen ? toggleMenu : null}
-                to={"/categories"}
-                style={({ isActive }) => ({
-                  color: isActive ? "#9f0013" : "inherit",
-                })}
-              >
-                Categories
-              </NavLink>
-            </Li>
+            {navLinks.map((link) => (
+              <Li key={link.to}>
+                <NavLink
+                  onClick={isMenuOpen ? toggleMenu : null}
+                  to={link.to}
+                  style={({ isActive }) => ({
+                    color: isActive ? "#9f0013" : "inherit",
+                  })}
+                >
+                  {link.label}
+                </NavLink>
+              </Li>
+            ))}
           </Ul>
         </Nav>
-        <Form onSubmit={handleSubmit}>
-          <Input placeholder="Search Movies, Series..." type="input"></Input>
-          <Button type="submit" />
-        </Form>
+        <HederSearchForm />
       </Wrapper>
     </Container>
   );

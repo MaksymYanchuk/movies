@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Swiper } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { CustomArrow } from "../style/Button";
+import { CustomArrow } from "../style/styledComponents";
 
 
 import "swiper/css";

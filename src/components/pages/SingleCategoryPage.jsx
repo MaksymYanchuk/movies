@@ -1,14 +1,16 @@
-import ErrorBoundary from "../ErrorBoundary";
-import ErrorMessage from "../ErrorMessage";
-
-import Spinner from "../Spinner";
-import { CardsGrid } from "../../style/styledComponents";
-import { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 import { _notFoundImg, http } from "../../services/moviesServices";
+import { useEffect } from "react";
+import Spinner from "../Spinner";
+import ErrorMessage from "../ErrorMessage";
+import { CardsGrid } from "../../style/styledComponents";
+import ErrorBoundary from "../ErrorBoundary";
 import TitleCard from "../TitleCard";
 
-const Series = () => {
+const SingleCategoryPage = () => {
+  const { category } = useParams();
+
   const {
     fetchNextPage,
     hasNextPage,
@@ -17,18 +19,18 @@ const Series = () => {
     error,
     ...result
   } = useInfiniteQuery({
-    queryKey: ["titles"],
+    queryKey: [category],
     refetchOnWindowFocus: false,
     retry: false,
     retryOnMount: false,
     keepPreviousData: true,
     queryFn: ({ pageParam }) =>
-      http.get("/titles", {
+      http.get("/titles/", {
         params: {
-          list: "most_pop_series",
           sort: "year.decr",
           info: "base_info",
           limit: "50",
+          genre: category.charAt(0).toUpperCase() + category.slice(1),
           page: pageParam,
         },
       }),
@@ -92,5 +94,4 @@ const Series = () => {
     </CardsGrid>
   );
 };
-
-export default Series;
+export default SingleCategoryPage;

@@ -2,9 +2,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
+  position:relative;
+  z-index: 1;
   display: flex;
   justify-content: space-around;
-  margin-bottom: 40px;
+  margin: 40px 0px 40px 0px;
 
   @media ${(props) => props.theme.media.phone} {
     flex-wrap: wrap;
@@ -38,7 +40,7 @@ const MediaWrapper = styled(Block)`
   justify-content: center;
 `;
 
-const Media = styled.a`
+const Media = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

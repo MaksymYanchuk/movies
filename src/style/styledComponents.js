@@ -69,4 +69,12 @@ export const Button = styled.button`
   }
 `;
 
+export const CardsGrid = styled.div`
+  gap: 20px;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+`;
+
 

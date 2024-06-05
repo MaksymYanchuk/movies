@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const ImgWrapper = styled.div`
   display: flex;
@@ -37,19 +38,22 @@ const Img = styled.img`
   }
 `;
 
-const MoviesListItemNumbered = ({ image, title, index }) => {
+const TitleListItemNumbered = ({ image, title, index, id, isSeries }) => {
   return (
     <ImgWrapper index={index + 1}>
-      <Img src={image} alt={title} />
+      <Link to={isSeries ? `/series/${id}` : `/movies/${id}`}>
+        <Img src={image} alt={title} />
+      </Link>
     </ImgWrapper>
   );
 };
 
-MoviesListItemNumbered.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+TitleListItemNumbered.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isSeries: PropTypes.bool.isRequired,
 };
 
-export default MoviesListItemNumbered;
+export default TitleListItemNumbered;
